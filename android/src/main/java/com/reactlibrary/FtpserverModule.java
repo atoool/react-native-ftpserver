@@ -202,12 +202,6 @@ public class FtpserverModule extends ReactContextBaseJavaModule implements Lifec
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, params);
     }
 
-    /**
-     * @author chenkaideng
-     * @fileName MyFtplet.java
-     * @date 2015年8月11日
-     * @describe 监控事件
-     */
     public class MyFtplet extends DefaultFtplet {
         private final Logger logger = Logger.getLogger(MyFtplet.class);
 
