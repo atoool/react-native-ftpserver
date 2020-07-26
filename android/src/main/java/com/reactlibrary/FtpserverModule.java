@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 public class FtpserverModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
     private static ReactApplicationContext reactContext;
     private FtpServer mFtpServer;
-    private int port = 2222;// 端口号
+    private int port = 2222;// port
     private String ftpConfigDir =Environment.getExternalStorageDirectory().getAbsolutePath()+ "/ftpConfig/";
     private String ftpServerFileDir = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/ftpServerFileDir/";
     private String TAG = "mainActivity";
