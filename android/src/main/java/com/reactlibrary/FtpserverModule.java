@@ -43,15 +43,16 @@ public class FtpserverModule extends ReactContextBaseJavaModule implements Lifec
     private static ReactApplicationContext reactContext;
     private FtpServer mFtpServer;
     private int port = 2222;// 端口号
-    private String ftpConfigDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ftpConfig/";
-    private String ftpServerFileDir = Environment.getExternalStorageDirectory().getAbsolutePath()
-            + "/ftpServerFileDir/";
+    private String ftpConfigDir =Environment.getExternalStorageDirectory().getAbsolutePath()+ "/ftpConfig/";
+    private String ftpServerFileDir = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/ftpServerFileDir/";
     private String TAG = "mainActivity";
 
     public FtpserverModule(ReactApplicationContext context) {
         super(context);
         reactContext = context;
         reactContext.addLifecycleEventListener(this);
+        ftpConfigDir =reactContext.getFilesDir().getAbsolutePath()+ "/ftpConfig/";
+        ftpServerFileDir =reactContext.getFilesDir().getAbsolutePath() + "/ftpServerFileDir/";
     }
 
     @Nonnull
@@ -61,10 +62,20 @@ public class FtpserverModule extends ReactContextBaseJavaModule implements Lifec
     }
 
     @ReactMethod
-    public void startServer(Promise promise) {
+    public void createResources(Promise promise){
+        File dir1 = new File(ftpConfigDir);
+        File dir2 = new File(ftpServerFileDir);
+        dir1.mkdir();
+        dir2.mkdir();
         copyResourceFile(R.raw.users, ftpConfigDir + "users.properties");
         copyResourceFile(R.raw.users, ftpConfigDir + "ftpserver.jks");
         copyResourceFile(R.raw.testdownload, ftpServerFileDir + "testDownload.txt");
+        String success="Success";
+        promise.resolve(ftpConfigDir);
+    }
+
+    @ReactMethod
+    public void startServer(Promise promise) {
         if (this.mFtpServer == null || this.mFtpServer.isStopped()) {
             startFTPServer();
         }
